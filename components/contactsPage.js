@@ -31,7 +31,7 @@ export default function Contacts() {
   //map all the contacts with fullname, email, message, phoneNumber
   return (
     <div className="m-5">
-      <h1 className='text-2xl py-4'>All Contacts</h1>
+      <h1 className="text-2xl py-4">All Contacts</h1>
       <div className="flex flex-col gap-3">
         {contacts &&
           contacts?.map((contact, idx) => {

@@ -1,15 +1,14 @@
 import connectDB from "@/app/lib/mongodb";
-import Dashboard from "@/app/modal/dashboard";
+import Gallery from "@/app/modal/gallery";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
-//create a get function for the dashbaord and post function for the dashboard
 
 export async function POST(req) {
-  const { whatWeDo } = await req.json();
+  const { gallery ,selected} = await req.json();
   try {
     await connectDB();
-    await Dashboard.create({ whatWeDo });
+    await Gallery.create({ gallery,selected });
 
     return NextResponse.json({
       msg: ["Message sent successfully"],
@@ -32,8 +31,8 @@ export async function POST(req) {
 export async function GET() {
   try {
     await connectDB();
-    const dashboard = await Dashboard.find({}).sort({ date: -1 });
-    return NextResponse.json({ dashboard });
+    const gallery = await Gallery.find({}).sort({ date: -1 });
+    return NextResponse.json({ gallery });
   } catch (error) {
     return NextResponse.json({ msg: ["Unable to fetch messages."] });
   }
