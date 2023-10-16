@@ -31,7 +31,7 @@ export async function POST(req) {
 export async function GET() {
   try {
     await connectDB();
-    const gallery = await Gallery.find({}).sort({ date: -1 });
+    const gallery = await Gallery.find({}).sort({ date: -1 }).limit(1);
     return NextResponse.json({ gallery });
   } catch (error) {
     return NextResponse.json({ msg: ["Unable to fetch messages."] });

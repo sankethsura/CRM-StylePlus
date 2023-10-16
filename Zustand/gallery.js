@@ -65,6 +65,60 @@ const useGalleryStore = create((set) => ({
     }
   },
 
+  removeFromSelected: async (image) => {
+    const state = useGalleryStore.getState();
+
+    try {
+      const res = await fetch("/api/gallery", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          gallery: [...state.images],
+          selected: state.selected.filter((img) => img.url !== image.url),
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        console.log("Image removed from selected");
+        state.getAllImages();
+        createToast("Image removed from selected", "success");
+      }
+    } catch (error) {
+      console.error("Error removing image from selected:", error);
+    }
+  },
+
+  removeFromAllImages: async (image) => {
+    const state = useGalleryStore.getState();
+
+    const updatedImages = state.images.filter((img) => img.url !== image.url);
+
+    try {
+      const res = await fetch("/api/gallery", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          gallery: updatedImages,
+          selected: state.selected,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        console.log("Image removed from all images");
+        set({ images: updatedImages });
+        createToast("Image removed from all images", "success");
+      }
+    } catch (error) {
+      console.error("Error removing image from all images:", error);
+    }
+  },
+
   getUrl: async (file) => {
     const fileNames = file.name.split(".");
     const fileExtension = fileNames[fileNames.length - 1];
