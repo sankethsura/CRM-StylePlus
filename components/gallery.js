@@ -43,7 +43,7 @@ export default function Gallery() {
           <div className="w-full grid gap-5 grid-cols-1 sm:grid-cols-3">
             {selected?.map((image, idx) => {
               return (
-                <div className="p-5 rounded border bg-gray-50">
+                <div key={idx} className="p-5 rounded border bg-gray-50">
                   <img src={image.url} className="w-60 h-60 object-cover" />
                 </div>
               );
@@ -56,7 +56,7 @@ export default function Gallery() {
           <div className="w-full grid gap-5 grid-cols-1 sm:grid-cols-3">
             {images?.map((image, idx) => {
               return (
-                <div className="p-5 rounded border bg-gray-50">
+                <div key={idx} className="p-5 rounded border bg-gray-50">
                   <p
                     className="text-black"
                     onClick={() => {
