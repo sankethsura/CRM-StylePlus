@@ -2,57 +2,15 @@
 
 import Spinner from "@/app/UI/spinner";
 import createToast from "@/app/UI/toast";
+import useDashboardStore from "@/Zustand/dashboard";
 import React, { useEffect, useState } from "react";
 
 export default function Dashboard() {
-  const [infos, setInfos] = useState([
-    {
-      title: "",
-      description: "",
-    },
-    {
-      title: "",
-      description: "",
-    },
-    {
-      title: "",
-      description: "",
-    },
-  ]);
-  const [loading, setLoading] = useState(true);
 
-  const saveChanges = async () => {
-    console.log(infos);
-
-    const res = await fetch("api/dashboard", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        whatWeDo: infos,
-      }),
-    });
-
-    const data = await res.json();
-    if (data?.success) {
-      setLoading(false);
-      createToast("Changes Saved", "success");
-    }
-  };
-
-  const getInfos = async () => {
-    const res = await fetch("api/dashboard", {
-      method: "GET",
-    });
-    const data = await res.json();
-    console.log(data?.dashboard[0]?.whatWeDo);
-    setInfos(data?.dashboard[0]?.whatWeDo);
-    setLoading(false);
-  };
-
+  const {fetchInfos, saveChanges, infos, setInfos, loading, setLoading} = useDashboardStore();
+  
   useEffect(() => {
-    getInfos();
+    fetchInfos();
   }, []);
 
   if (loading) {

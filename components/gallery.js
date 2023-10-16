@@ -1,39 +1,15 @@
 "use client";
 
 import createToast from "@/app/UI/toast";
+import useGalleryStore from "@/Zustand/gallery";
 import React, { useEffect, useState } from "react";
 
 export default function Gallery() {
-  const [images, setImages] = useState([]);
-  const [selected, setSelected] = useState([]);
-
-  const getAllImages = async () => {
-    const res = await fetch("/api/gallery", { next: { revalidate: 1 } });
-    const data = await res.json();
-    setImages(data.gallery[0].gallery);
-    setSelected(data.gallery[0].selected);
-  };
+  const { images, selected, getAllImages, moveToSelected } = useGalleryStore();
 
   useEffect(() => {
     getAllImages();
   }, []);
-
-  const moveToSelected = async (image) => {
-    const res = await fetch("/api/gallery", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        gallery :[...images],
-        selected : selected ? [...selected,image] : [image]
-      }),
-    });
-    const data = await res.json();
-    if(data.success)
-    createToast("Image moved to selected","success")
-    getAllImages();
-  };
 
   return (
     <div className="w-full">

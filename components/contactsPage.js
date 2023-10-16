@@ -1,20 +1,14 @@
 "use client";
 
 import Spinner from "@/app/UI/spinner";
+import useContactStore from "@/Zustand/contact";
 import moment from "moment";
 import { useEffect, useState } from "react";
 
 export default function Contacts() {
-  let [contacts, setContacts] = useState([]);
-  let [loading, setLoading] = useState(true);
-  const getAllContacts = async () => {
-    const res = await fetch("/api/contact", {
-      method: "GET",
-    });
-    const data = await res.json();
-    setContacts(data?.contacts);
-    setLoading(false);
-  };
+
+  const { contacts, loading, getAllContacts } = useContactStore();
+
   useEffect(() => {
     getAllContacts();
   }, []);
