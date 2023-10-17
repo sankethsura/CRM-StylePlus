@@ -8,7 +8,8 @@ export async function POST(req) {
     await connectDB();
 
     const image = await AllImages.findOne({ _id });
-    image.delete = true;
+    console.log(image)
+    image.deleted = true;
     await image.save();
 
     return NextResponse.json({

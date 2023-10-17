@@ -87,8 +87,9 @@ const useGalleryStore = create((set) => ({
   },
 
   removeFromAllImages: async (image) => {
+    const state = useGalleryStore.getState();
     try {
-      const res = await fetch("/api/gallery", {
+      const res = await fetch("/api/allImages/deleteFromAllImages", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -100,8 +101,7 @@ const useGalleryStore = create((set) => ({
 
       const data = await res.json();
       if (data.success) {
-        console.log("Image removed from all images");
-        set({ images: updatedImages });
+        state.getAllImages();
         createToast("Image removed from all images", "success");
       }
     } catch (error) {
