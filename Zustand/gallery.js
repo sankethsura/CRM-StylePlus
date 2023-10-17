@@ -8,14 +8,13 @@ const useGalleryStore = create((set) => ({
 
   getAllImages: async () => {
     try {
-      const res = await fetch("/api/gallery", { next: { revalidate: 1 } });
-      const data = await res.json();
-      if (data.gallery && data.gallery[0]) {
-        set({
-          images: data.gallery[0].gallery,
-          selected: data.gallery[0].selected,
-        });
-      }
+      const res2 = await fetch("/api/allImages", { next: { revalidate: 1 } });
+      const data2 = await res2.json();
+
+      set({
+        selected: data2.allImagesSelected,
+        images: data2.allImagesNonSelected,
+      });
     } catch (error) {
       console.error("Error fetching images:", error);
     }
@@ -23,16 +22,13 @@ const useGalleryStore = create((set) => ({
 
   moveToSelected: async (image) => {
     try {
-      const res = await fetch("/api/gallery", {
+      const res = await fetch("/api/allImages/moveToSelected", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          gallery: [...useGalleryStore.getState().images],
-          selected: useGalleryStore.getState().selected
-            ? [...useGalleryStore.getState().selected, image]
-            : [image],
+          _id: image._id,
         }),
       });
       const data = await res.json();
@@ -69,14 +65,13 @@ const useGalleryStore = create((set) => ({
     const state = useGalleryStore.getState();
 
     try {
-      const res = await fetch("/api/gallery", {
+      const res = await fetch("/api/allImages/deleteFromSelected", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          gallery: [...state.images],
-          selected: state.selected.filter((img) => img.url !== image.url),
+         _id: image._id,
         }),
       });
 
@@ -92,10 +87,6 @@ const useGalleryStore = create((set) => ({
   },
 
   removeFromAllImages: async (image) => {
-    const state = useGalleryStore.getState();
-
-    const updatedImages = state.images.filter((img) => img.url !== image.url);
-
     try {
       const res = await fetch("/api/gallery", {
         method: "POST",
@@ -103,8 +94,7 @@ const useGalleryStore = create((set) => ({
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          gallery: updatedImages,
-          selected: state.selected,
+          _id: image._id,
         }),
       });
 
@@ -154,22 +144,39 @@ const useGalleryStore = create((set) => ({
     const allImages = [...state.images, { url: gallery }];
 
     try {
-      const res = await fetch("api/gallery", {
+      const res2 = await fetch("api/allImages", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          gallery: allImages,
-          selected: state.selected,
+          url: gallery,
         }),
       });
-      const data = await res.json();
-      if (data.success) {
-        console.log("Image added to gallery");
-        createToast("Image added to gallery", "success");
+
+      const data2 = await res2.json();
+      if (data2.success) {
+        console.log("Image added to all images");
+        createToast("Image added to all images", "success");
         state.getAllImages();
       }
+
+      // const res = await fetch("api/gallery", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     gallery: allImages,
+      //     selected: state.selected,
+      //   }),
+      // });
+      // const data = await res.json();
+      // if (data.success) {
+      //   console.log("Image added to gallery");
+      //   createToast("Image added to gallery", "success");
+      //   state.getAllImages();
+      // }
     } catch (error) {
       createToast("Error adding image to gallery", "error");
       console.error("Error adding image to gallery:", error);

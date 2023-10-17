@@ -1,8 +1,8 @@
 "use client";
 
 import createToast from "@/app/UI/toast";
-import useGalleryStore from "@/Zustand/gallery";
 import React, { useState } from "react";
+import useGalleryStore from "../Zustand/gallery";
 
 export default function Upload() {
   const [file, setFile] = useState();

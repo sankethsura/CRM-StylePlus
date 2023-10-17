@@ -13,7 +13,13 @@ const allImagesSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    deleted: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const AllImages =
     mongoose.models.AllImages || mongoose.model("AllImages", allImagesSchema);
+
+export default AllImages;

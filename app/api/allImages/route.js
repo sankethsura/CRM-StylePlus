@@ -1,13 +1,13 @@
 import connectDB from "@/app/lib/mongodb";
-import Gallery from "@/app/modal/gallery";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
+import AllImages from "@/app/modal/allImages";
 
 export async function POST(req) {
-  const { gallery ,selected} = await req.json();
+  const { url } = await req.json();
   try {
     await connectDB();
-    await Gallery.create({ gallery,selected });
+    await AllImages.create({ url });
 
     return NextResponse.json({
       msg: ["Message sent successfully"],
@@ -30,8 +30,17 @@ export async function POST(req) {
 export async function GET() {
   try {
     await connectDB();
-    const gallery = await Gallery.find({}).sort({ date: -1 }).limit(1);
-    return NextResponse.json({ gallery });
+    const allImagesNonSelected = await AllImages.find({
+      selected: false,
+      deleted: false,
+    }).sort({ date: -1 });
+    const allImagesSelected = await AllImages.find({
+      selected: true,
+      deleted: false,
+    }).sort({
+      date: -1,
+    });
+    return NextResponse.json({ allImagesNonSelected, allImagesSelected });
   } catch (error) {
     return NextResponse.json({ msg: ["Unable to fetch messages."] });
   }
