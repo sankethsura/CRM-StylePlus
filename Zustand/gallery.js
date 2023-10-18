@@ -42,7 +42,6 @@ const useGalleryStore = create((set) => ({
     }
   },
 
-  // New functions
   uploadResumeToS3: async (file, url, filePath, fileExtension) => {
     const fileType = file.type;
 

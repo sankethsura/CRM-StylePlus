@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import ToastProvider from "./UI/toastProvider";
+import VerticalNav from "@/components/VerticalNav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +14,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ToastProvider>{children}</ToastProvider>
+        <div className="w-[100vw] h-[100vh] flex ">
+          <section className="h-full">
+            <VerticalNav />
+          </section>
+          <section className="h-[100vh] overflow-y-scroll ">
+            <ToastProvider>{children}</ToastProvider>
+          </section>
+        </div>
       </body>
     </html>
   );
