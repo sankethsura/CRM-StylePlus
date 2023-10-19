@@ -5,8 +5,7 @@ import React from "react";
 
 export default function Index() {
   return (
-    <div>
-      <Navbar />
+    <div className="w-full">
       <Upload />
       <Gallery />
     </div>

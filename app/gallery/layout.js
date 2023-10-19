@@ -3,8 +3,8 @@ import React from "react";
 
 export default function layout({ children }) {
   return (
-    <div className="w-[100vw] h-[100vh] flex ">
-      <section className="h-full overflow-y-scroll">{children}</section>
+    <div className="w-full h-full ">
+      <section className="w-full h-full overflow-y-scroll ">{children}</section>
       <section></section>
     </div>
   );

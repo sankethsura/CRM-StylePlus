@@ -1,14 +1,11 @@
 "use client";
 
 import Contacts from "@/components/contactsPage";
-import Navbar from "@/components/navbar";
-import Upload from "@/components/upload";
+import Title from "./UI/Title";
 
 export default function Home() {
   return (
-    <div>
-      <Navbar />
-      <Upload />
+    <div className="w-full">
       <Contacts />
     </div>
   );
