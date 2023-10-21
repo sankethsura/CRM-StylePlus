@@ -3,7 +3,11 @@
 import createToast from "@/app/UI/toast";
 import React, { useState } from "react";
 import useGalleryStore from "../Zustand/gallery";
-import { Paperclip, UploadSimple } from "@phosphor-icons/react/dist/ssr";
+import {
+  FileImage,
+  HandPointing,
+  UploadSimple,
+} from "@phosphor-icons/react/dist/ssr";
 import Title from "@/app/UI/Title";
 import Spinner from "@/app/UI/spinner";
 
@@ -19,7 +23,7 @@ export default function Upload() {
   }
 
   return (
-    <div className="flex items-center gap-5 ">
+    <div className="flex items-center gap-5 sm:flex-row flex-col">
       <Title>Upload Image</Title>
       <input
         type="file"
@@ -34,10 +38,9 @@ export default function Upload() {
         }}
       >
         <p className="w-[200px] truncate">
-
-        {file?.name ? file?.name : " Select Image"}
+          {file?.name ? file?.name : " Select Image"}
         </p>
-        <Paperclip size={22} />
+        <FileImage size={22} />
       </button>
       <button
         disabled={!file}
@@ -60,7 +63,6 @@ export default function Upload() {
           Uploading...
         </div>
       )}
-
     </div>
   );
 }

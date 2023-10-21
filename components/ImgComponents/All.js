@@ -1,6 +1,7 @@
 import useGalleryStore from "@/Zustand/gallery";
 import Title from "@/app/UI/Title";
 import { X } from "@phosphor-icons/react";
+import { Star } from "@phosphor-icons/react/dist/ssr";
 import React from "react";
 
 export default function All() {
@@ -12,23 +13,26 @@ export default function All() {
       <div className="w-full grid gap-5 grid-cols-1 sm:grid-cols-3">
         {images?.map((image, idx) => {
           return (
-            <div key={idx} className="p-5 rounded border bg-gray-50 relative">
+            <div key={idx} className="p-2.5 flex flex-col gap-3 rounded shadow-xl border border-customColorPurple2/30 bg-gradient-to-br from-customColorPurple ">
+              <section className="flex items-center w-full justify-between bg-customColorPink3/5 px-2.5">
+
               <p
-                className="text-black"
+                className="text-customColorWhite/70 text-xs cursor-pointer flex items-center gap-2 hover:text-customColorWhite/90 duration-300"
                 onClick={() => {
                   moveToSelected(image);
                 }}
-              >
-                Move to selected
+                >
+                Move to selected <Star size={18} />
               </p>
               <X
                 size={24}
-                className="p-2 bg-black text-white m-1 absolute top-2 right-2 rounded cursor-pointer"
+                className="p-2 bg-darkColor1/30 border border-customColorPurple2/20 text-white m-1 top-2 right-2 rounded cursor-pointer"
                 onClick={() => {
                   removeFromAllImages(image);
                 }}
-              />
-              <img src={image.url} className="w-60 h-60 object-cover" />
+                />
+                </section>
+              <img src={image.url} className="w-full h-60 object-cover rounded " />
             </div>
           );
         })}
