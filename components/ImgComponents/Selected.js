@@ -6,8 +6,8 @@ import React from "react";
 export default function Selected() {
   const { selected, removeFromSelected } = useGalleryStore();
   return (
-    <section className="w-full h-full overflow-y-scroll scrollHide">
-      <Title>Selected Images</Title>
+    <section className="w-full h-full flex flex-col gap-3 overflow-y-scroll scrollHide">
+      <Title>Selected images in gallery</Title>
       <div className="w-full grid gap-5 grid-cols-1 sm:grid-cols-3">
         {selected?.map((image, idx) => {
           return (

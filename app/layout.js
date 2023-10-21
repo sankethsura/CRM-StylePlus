@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
                 <TitleNav />
               </div>
             </div>
-            <div className="w-full h-full overflow-y-scroll bg-gradient-to-br from-25% from-customColorPurple rounded p-5 scrollHide">
+            <div className="w-full h-full overflow-y-scroll bg-gradient-to-br from-25% from-customColorPurple rounded scrollHide">
               <ToastProvider>{children}</ToastProvider>
             </div>
           </section>

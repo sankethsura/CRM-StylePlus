@@ -23,7 +23,7 @@ export default function Upload() {
   }
 
   return (
-    <div className="flex items-center gap-5 sm:flex-row flex-col">
+    <div className="flex items-center gap-5 sm:flex-row flex-col text-customColorWhite">
       <Title>Upload Image</Title>
       <input
         type="file"

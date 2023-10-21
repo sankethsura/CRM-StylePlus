@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Index() {
   return (
-    <div>
+    <div className="w-full p-5">
       <Dashboard />
     </div>
   );
