@@ -39,7 +39,7 @@ export default function Dashboard() {
               <p className="text-white/60">Title : </p>
               <input
                 value={box?.title}
-                className="w-full bg-gradient-to-br from-25% from-customColorPurple t-0 to-customColorPurple/90 p-3 rounded outline-none "
+                className="w-full bg-gradient-to-br from-25% from-customColorPurple t-0 to-customColorPurple/90 p-3 rounded outline-none border border-customColorPurple"
                 onChange={(e) => {
                   setNewInfos((prevInfos) => {
                     const newInfos = [...prevInfos];
@@ -51,13 +51,13 @@ export default function Dashboard() {
               <p className="text-white/60">Description : </p>
               <input
                 value={box?.description}
-                className="w-full bg-gradient-to-br from-25% from-customColorPurple t-0 to-customColorPurple/90 p-3 rounded outline-none "
+                className="w-full bg-gradient-to-br from-25% from-customColorPurple t-0 to-customColorPurple/90 p-3 rounded outline-none border border-customColorPurple"
                 onChange={(e) => {
-                  // setInfos((prev) => {
-                  //   let newInfos = [...prev];
-                  //   newInfos[index].description = e.target.value;
-                  //   return newInfos;
-                  // });
+                  setNewInfos((prevInfos) => {
+                    const newInfos = [...prevInfos];
+                    newInfos[index].description = e.target.value;
+                    return newInfos;
+                  });
                 }}
               />
             </div>
@@ -65,15 +65,7 @@ export default function Dashboard() {
         })}
       <div>
         <button
-          className="
-        bg-blue-500
-        hover:bg-blue-700
-        text-white
-        font-bold
-        py-2
-        px-4
-        rounded
-        "
+          className="bg-customColorPurple2 text-white/90 rounded px-3 py-2 hover:bg-customColorPurple duration-300 w-full"
           onClick={async () => {
             await saveChanges(newInfos);
             await fetchInfos();
