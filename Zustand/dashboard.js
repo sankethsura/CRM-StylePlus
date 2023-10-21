@@ -1,6 +1,5 @@
 // src/store/dashboardStore.js
 import { create } from "zustand";
-import produce from "immer";
 
 const useDashboardStore = create((set) => ({
   infos: [
@@ -19,12 +18,8 @@ const useDashboardStore = create((set) => ({
   ],
   loading: true,
   setLoading: (loading) => set(() => ({ loading })),
-  setInfos: (newInfos) =>
-    set((state) =>
-      produce(state, (draft) => {
-        draft.infos = newInfos;
-      })
-    ),
+  setInfos: (e) => set({ infos: e }),
+
   fetchInfos: async () => {
     try {
       // Set loading to true before the API call
@@ -43,7 +38,7 @@ const useDashboardStore = create((set) => ({
       set({ loading: false });
     }
   },
-  saveChanges: async () => {
+  saveChanges: async (newInfos) => {
     try {
       const res = await fetch("api/dashboard", {
         method: "POST",
@@ -51,7 +46,7 @@ const useDashboardStore = create((set) => ({
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          whatWeDo: this.getState().infos,
+          whatWeDo: newInfos,
         }),
       });
 

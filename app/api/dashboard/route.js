@@ -32,7 +32,7 @@ export async function POST(req) {
 export async function GET() {
   try {
     await connectDB();
-    const dashboard = await Dashboard.find({}).sort({ date: -1 });
+    const dashboard = await Dashboard.find({}).sort({ date: -1 }).limit(1);
     return NextResponse.json({ dashboard });
   } catch (error) {
     return NextResponse.json({ msg: ["Unable to fetch messages."] });

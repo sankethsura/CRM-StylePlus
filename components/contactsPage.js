@@ -57,14 +57,14 @@ export default function Contacts() {
           `}
       </style>
       {contacts &&
-        contacts.map((contact, idx) => {
+        contacts?.map((contact, idx) => {
           const contactInfo = contactSchema(contact);
           return (
             <div
               key={idx}
-              className="flex flex-col gap-3 rounded-lg p-5 bg-gradient-to-br from-customColorPurple2 to-customColorPurple mt-8 relative border border-customColorPurple"
+              className="flex flex-col gap-3 rounded-lg p-5 bg-gradient-to-br from-customColorPurple2 to-customColorPurple mt-8 relative border border-customColorPurple text-white"
             >
-              <div className=" trapezium sm:w-[220px] sm:h-[32px] w-[100px] h-[20px] bg-gradient-to-b from-customColorPurple2 to-customColorPurple sm:-top-[32px] -top-[20px] left-2 absolute" />
+              <div className=" trapezium sm:w-[220px] sm:h-[32px] w-[100px] h-[20px] bg-gradient-to-br from-customColorPurple2 to-customColorPurple sm:-top-[32px] -top-[20px] left-2 absolute" />
               <div className="absolute h-full w-8 flex flex-col justify-start items-center gap-3 top-4 right-4">
                 <section className="p-2 rounded hover:bg-customColorPurple shadow duration-300 cursor-pointer">
                   <Star
@@ -142,7 +142,7 @@ export default function Contacts() {
                   )}
                 </section>
               </div>
-              {contactInfo.map((info, i) => (
+              {contactInfo?.map((info, i) => (
                 <div className="flex flex-col gap-1" key={i}>
                   <p className="text-xs text-white/60">{info.name} :</p>{" "}
                   <p className="text-sm">{info.value}</p>

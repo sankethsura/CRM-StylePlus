@@ -6,12 +6,16 @@ import useDashboardStore from "@/Zustand/dashboard";
 import React, { useEffect, useState } from "react";
 
 export default function Dashboard() {
+  const { fetchInfos, saveChanges, infos, loading } = useDashboardStore();
+  const [newInfos, setNewInfos] = useState(infos);
 
-  const {fetchInfos, saveChanges, infos, setInfos, loading, setLoading} = useDashboardStore();
-  
   useEffect(() => {
     fetchInfos();
   }, []);
+
+  useEffect(() => {
+    setNewInfos(infos);
+  }, [infos]);
 
   if (loading) {
     return (
@@ -23,49 +27,42 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="px-5 flex flex-col gap-5 w-full">
-      <h1 className="text-2xl py-4">Dashboard</h1>
-      {infos.map((box, index) => {
-        console.log(box);
-        return (
-          <div key={index + 1} className="bg-gray-700 rounded-lg p-5 w-full">
-            <p>Box : {index + 1}</p>
-            <p>Title : </p>
-            <input
-              value={box?.title}
-              className="w-full text-black"
-              onChange={(e) => {
-                setInfos((prev) => {
-                  let obj = prev.find((item, idx) => index === idx);
-                  obj.title = e.target.value;
-                  return [
-                    ...prev?.slice(0, index),
-                    obj,
-                    ...prev?.slice(index + 1),
-                  ];
-                });
-              }}
-            />
-
-            <p>Description : </p>
-            <input
-              value={box?.description}
-              className="w-full text-black"
-              onChange={(e) => {
-                setInfos((prev) => {
-                  let obj = prev.find((item, idx) => index === idx);
-                  obj.description = e.target.value;
-                  return [
-                    ...prev?.slice(0, index),
-                    obj,
-                    ...prev?.slice(index + 1),
-                  ];
-                });
-              }}
-            />
-          </div>
-        );
-      })}
+    <div className="flex flex-col gap-5 w-full">
+      {newInfos &&
+        newInfos?.map((box, index) => {
+          return (
+            <div
+              key={index + 1}
+              className="bg-gradient-to-br from-customColorPurple2 to-customColorPurple rounded-lg p-5 w-full text-white text-sm flex flex-col gap-3"
+            >
+              <p className="text-xl"> # {index + 1}</p>
+              <p className="text-white/60">Title : </p>
+              <input
+                value={box?.title}
+                className="w-full bg-gradient-to-br from-25% from-customColorPurple t-0 to-customColorPurple/90 p-3 rounded outline-none "
+                onChange={(e) => {
+                  setNewInfos((prevInfos) => {
+                    const newInfos = [...prevInfos];
+                    newInfos[index].title = e.target.value;
+                    return newInfos;
+                  });
+                }}
+              />
+              <p className="text-white/60">Description : </p>
+              <input
+                value={box?.description}
+                className="w-full bg-gradient-to-br from-25% from-customColorPurple t-0 to-customColorPurple/90 p-3 rounded outline-none "
+                onChange={(e) => {
+                  // setInfos((prev) => {
+                  //   let newInfos = [...prev];
+                  //   newInfos[index].description = e.target.value;
+                  //   return newInfos;
+                  // });
+                }}
+              />
+            </div>
+          );
+        })}
       <div>
         <button
           className="
@@ -77,9 +74,9 @@ export default function Dashboard() {
         px-4
         rounded
         "
-          onClick={() => {
-            saveChanges();
-            setLoading(true);
+          onClick={async () => {
+            await saveChanges(newInfos);
+            await fetchInfos();
           }}
         >
           Save Changes
