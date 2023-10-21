@@ -15,6 +15,7 @@ module.exports = {
       customColorWhite:'#FAF8ED',
       customColorPurple:'#363062',
       customColorPurple2:'#4D4C7D',
+      customColorPink3:'#E95793',
       ...colors,
     },
     extend: {
