@@ -1,4 +1,5 @@
 // src/store/dashboardStore.js
+import createToast from "@/app/UI/toast";
 import { create } from "zustand";
 
 const useDashboardStore = create((set) => ({
@@ -53,6 +54,7 @@ const useDashboardStore = create((set) => ({
       const data = await res.json();
       if (data?.success) {
         console.log("Changes saved successfully.");
+        createToast("Changes saved successfully","success");
       }
     } catch (error) {
       console.error("Error saving changes:", error);
