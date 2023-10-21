@@ -5,6 +5,7 @@ import createToast from "@/app/UI/toast";
 const useGalleryStore = create((set) => ({
   images: [],
   selected: [],
+  loading: false,
 
   getAllImages: async () => {
     try {
@@ -43,6 +44,8 @@ const useGalleryStore = create((set) => ({
   },
 
   uploadResumeToS3: async (file, url, filePath, fileExtension) => {
+    set({ loading: true });
+
     const fileType = file.type;
 
     const savingURL = url.split(fileExtension)[0];
@@ -158,24 +161,8 @@ const useGalleryStore = create((set) => ({
         console.log("Image added to all images");
         createToast("Image added to all images", "success");
         state.getAllImages();
+        set({ loading: false });
       }
-
-      // const res = await fetch("api/gallery", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     gallery: allImages,
-      //     selected: state.selected,
-      //   }),
-      // });
-      // const data = await res.json();
-      // if (data.success) {
-      //   console.log("Image added to gallery");
-      //   createToast("Image added to gallery", "success");
-      //   state.getAllImages();
-      // }
     } catch (error) {
       createToast("Error adding image to gallery", "error");
       console.error("Error adding image to gallery:", error);

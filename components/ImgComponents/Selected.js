@@ -5,8 +5,8 @@ import React from "react";
 export default function Selected() {
   const { selected, removeFromSelected } = useGalleryStore();
   return (
-    <div>
-      <section className="w-full">
+
+      <section className="w-full h-full overflow-y-scroll scrollHide">
         <p>Selected Images</p>
         <div className="w-full grid gap-5 grid-cols-1 sm:grid-cols-3">
           {selected?.map((image, idx) => {
@@ -28,6 +28,5 @@ export default function Selected() {
           })}
         </div>
       </section>
-    </div>
   );
 }

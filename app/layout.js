@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-darkColor1`}>
         <CustomCssBG />
         <div className="w-[100vw] h-[100vh] flex bg-darkColor1/10 ">
           <section className="h-full hidden sm:flex">
