@@ -34,21 +34,26 @@ export const SubNavMenu = [
   {
     name: "What We Do",
     path: "/dashboard",
+    active: true,
   },
   {
     name: "About",
     path: "/dashboard/about",
+    active: true,
   },
   {
     name: "Latest Work",
     path: "/dashboard/latest-work",
+    active: false,
   },
   {
     name: "Our Services",
     path: "/dashboard/our-services",
+    active: false,
   },
   {
     name: "Testimonials",
     path: "/dashboard/testimonials",
+    active: false,
   },
 ];
