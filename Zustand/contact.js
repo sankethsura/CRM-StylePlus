@@ -1,16 +1,14 @@
 // src/store/contactStore.js
 import { create } from "zustand";
-import produce from "immer";
 
 const useContactStore = create((set) => ({
   contacts: [],
   loading: true,
   setContacts: (newContacts) =>
-    set((state) =>
-      produce(state, (draft) => {
-        draft.contacts = newContacts;
-      })
-    ),
+    set((state) => {
+      state.contacts = newContacts;
+      return state;
+    }),
   setLoading: (loading) => set(() => ({ loading })),
   getAllContacts: async () => {
     try {
