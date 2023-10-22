@@ -17,6 +17,7 @@ export default function SecondaryNav() {
       {SubNavMenu.map((item, index) => {
         return (
           <div
+            key={index + 1}
             className={`${
               activePath?.path === item?.path ? "text-white" : ""
             } ${
