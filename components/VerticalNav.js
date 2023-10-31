@@ -4,14 +4,20 @@ import {
   AddressBook,
   Chalkboard,
   FolderStar,
+  UserCircle,
 } from "@phosphor-icons/react/dist/ssr";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function VerticalNav() {
   const router = useRouter();
-
+  // UserCircle 
   const ICONS = [
+    {
+      name: "UserCircle",
+      icon: <UserCircle size={22} />,
+      path: "/profile",
+    },
     {
       name: "AddressBook",
       icon: <AddressBook size={22} />,
