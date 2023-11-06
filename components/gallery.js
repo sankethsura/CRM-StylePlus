@@ -15,8 +15,8 @@ export default function Gallery() {
   return (
     <div className="w-full">
       <div className="flex flex-col gap-5 w-full">
-        {selected.length > 0 ? <Selected /> : ""}
-        {images.length > 0 ? <All /> : ""}
+        {selected?.length > 0 ? <Selected /> : ""}
+        {images?.length > 0 ? <All /> : ""}
       </div>
     </div>
   );
