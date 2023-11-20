@@ -37,6 +37,9 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
+      <head>
+        <title>StylePlus</title>
+      </head>
       <body className={`${inter.className} bg-darkColor1`}>
         <Provider>
           <CustomCssBG />
