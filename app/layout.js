@@ -39,13 +39,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <title>StylePlus</title>
-        <script
+       
+      </head>
+      <body className={`${inter.className} bg-darkColor1`}>
+      <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9594999666346846"
           crossorigin="anonymous"
         ></script>
-      </head>
-      <body className={`${inter.className} bg-darkColor1`}>
         <Provider>
           <CustomCssBG />
           <div className="w-[100vw] h-[100vh] flex bg-darkColor1/10 ">
