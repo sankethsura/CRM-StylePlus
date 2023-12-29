@@ -39,9 +39,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <title>StylePlus</title>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9594999666346846"
+          crossorigin="anonymous"
+        ></script>
       </head>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9594999666346846"
-     crossorigin="anonymous"></script>
       <body className={`${inter.className} bg-darkColor1`}>
         <Provider>
           <CustomCssBG />
