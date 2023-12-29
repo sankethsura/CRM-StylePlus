@@ -1,20 +1,52 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { status } = useSession();
 
   const signinwithgoogle = async () => {
-    signIn("google", {
-      redirect: true,
-      callbackUrl: "/profile",
-    });
+    popupCenter("/authentication/google-signin", "Sample Sign In");
+  };
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/profile");
+    }
+  }, [status]);
+
+  const popupCenter = (url, title) => {
+    const dualScreenLeft = window.screenLeft ?? window.screenX;
+    const dualScreenTop = window.screenTop ?? window.screenY;
+
+    const width =
+      window.innerWidth ?? document.documentElement.clientWidth ?? screen.width;
+
+    const height =
+      window.innerHeight ??
+      document.documentElement.clientHeight ??
+      screen.height;
+
+    const systemZoom = width / window.screen.availWidth;
+
+    const left = (width - 500) / 2 / systemZoom + dualScreenLeft;
+    const top = (height - 550) / 2 / systemZoom + dualScreenTop;
+
+    const newWindow = window.open(
+      url,
+      title,
+      `width=${500 / systemZoom},height=${
+        550 / systemZoom
+      },top=${top},left=${left}`
+    );
+
+    newWindow?.focus();
   };
 
   return (
@@ -100,7 +132,7 @@ export default function Signin() {
                 Sign in
               </button>
               <button
-                onClick={signinwithgoogle}
+                onClick={() => signinwithgoogle()}
                 className="flex mt-2 w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400  focus-visible:outline-indigo-500"
               >
                 Google sign in
